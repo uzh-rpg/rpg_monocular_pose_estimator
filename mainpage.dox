@@ -1,0 +1,45 @@
+/**
+\mainpage
+
+\b monocular_pose_tracker 
+
+\section pkg_overview Package Overview
+
+The monocular pose estimator uses infrared LEDs mounted on a target object and a camera with an infrared-pass filter to track the pose of an object.
+
+The LEDs are detected in the image. The positions of the LEDs on the target object are known. Consequently, the pose of the target object can be calculated.
+
+For more information on the installation, and usage of the program, including the setting of parameters please see the [README](\ref README).
+
+A brief outline of how the program executes is presented in the sections below.
+
+\section desc Program Execution
+
+This section explains the basic outline of how the program executes. For an an explanation of how to install and use the package, please see the [README](\ref README).
+
+\note For a more detailed explanation of how each of these steps is executed, please consult our paper \cite Faessler:2014 [(A Monocular Pose Estimation System based on Infrared LEDs)](http://rpg.ifi.uzh.ch/docs/ICRA14_Faessler.pdf) or refer to the more detailed function descriptions of the [classes](./annotated.html) and [source files](./files.html) which contain descriptions of the individual functions.
+
+\subsection basic_desc Simplified Description
+
+Fig. 1 shows the basic concept of the program. An image is obtained and the previous poses are used to predict the current pose of the object and consequently the current projection of the LEDs in the image. Using this prediction a region of interest (ROI) is defined in which the LEDs are expected to be detected in the image. This ROI in the image is then processed and the LEDs are detected. Using these detected LEDs, a correspondence search is carried out to determine the correspondences between the image detections and the LEDs mounted on the object. Once the correspondences are determined, the pose is then optimised by minimising the reprojection error of the LEDs on the image plane. This optimisation results in a pose with a covariance. When the next image is obtained, the process is repeated.
+
+\image html overview_flow_chart.png "Fig. 1: Flow chart showing the main concept of the program"
+
+\subsection detailed_desc Detailed Description
+
+Fig. 2 shows the detailed execution of the program. The program loop is executed whenever an image is received from the camera.
+
+When the first image is received, the system has not yet been initialised, i.e. the system has no previous poses from which to determine the region of interest for image processing. Consequently, the entire image is processed to detect the LEDs. If the number of LEDs detected is below 4, then then a pose cannot be resolved, and the algorithms stops and waits for the next image. If the number of LEDs detected is greater than or equal to 4 then a brute-force combinatorial correspondence search is performed, in order to determine the correspondences between the LEDs on the object and the image detections. These correspondences are then checked for validity. If valid, the pose is optimised by minimising the reprojection error and then updated to be the curernt pose. The initilised flag is set to 'yes'. If the correspondences were not valid, the algorithm stops and waits for the next image.
+
+If the image is received and the system has been initialised, then the pose of the object is predicted using a constant velocity model if more than two previous poses exist, or a zero velocity model if only one previous pose exists. This predicted pose is used to determine the expected positions of the LEDs in the image and consequently a region of interest (ROI) in the image to which the image processing/LED detection will be constrained. If the number of detected LEDs in the ROI is greater than or equal to 4, then the the correspondences are determined by a nearest neighbour search between the predicted LED positions in the image and the image detections. IF the number of of LEDs detected in the ROI was less than 4, then the entire image would be searched for LEDs. Again, if the number of LEDs detected is greater than 4 then the nearest neighbour serach would be conducted to determine the LED and image detection correspondences. If th number of detections was smaller 4, then the algorithm would stop and wait for the next image.
+
+Once the nearest neighbour search had determined the correspondences, the validity of the correspondences is checked. If valid, the pose is optimised, and updated. If not valid, the brute-force combinatorial correspondence search is executed to determine the correspondences. The vaidity of the correspondences is checked, and if vaid, the pose is optimised and updated, otherwise the algorithms stops and waits for the next image.
+
+\note A minimum of 4 LEDs need to be detected in order to resolve the pose of the object.
+
+\image html detailed_flow_chart.png "Fig. 2: Detailed flow chart showing the execution of the program"
+
+
+
+
+*/

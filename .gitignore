@@ -1,0 +1,7 @@
+# Temporary files
+*~
+
+# Documentation
+doxygen_documentation/*.tag
+doxygen_documentation/latex/
+doxygen_documentation/html/

@@ -1,0 +1,29 @@
+<launch> 
+
+	<!-- Name of the YAML file containing the marker positions -->
+	<arg name="YAML_file_name" default="demo_marker_positions"/>
+
+	<!-- File containing the the marker positions in the trackable's frame of reference -->
+	<arg name="marker_positions_file" default="$(find monocular_pose_estimator)/marker_positions/$(arg YAML_file_name).yaml"/> 
+
+	<group ns="monocular_pose_estimator" >
+		<node name="monocular_pose_estimator" pkg="monocular_pose_estimator" type="monocular_pose_estimator" respawn="false"> 
+			<rosparam command="load" file="$(arg marker_positions_file)"/>
+			<param name= "threshold_value" value = "140" />
+			<param name= "gaussian_sigma" value = "0.6" />
+			<param name= "min_blob_area" value = "10" />
+			<param name= "max_blob_area" value = "200" />
+			<param name= "max_width_height_distortion" value = "0.5" />
+			<param name= "max_circular_distortion" value = "0.5" />
+			<param name= "back_projection_pixel_tolerance" value = "5" />
+			<param name= "nearest_neighbour_pixel_tolerance" value = "7" />
+			<param name= "certainty_threshold" value = "0.75" />
+			<param name= "valid_correspondence_threshold" value = "0.7" />
+		</node>
+	
+		<node name="view_visualisation_image" pkg="image_view" type="image_view" args="image:=/monocular_pose_estimator/image_with_detections" />
+	</group>
+
+	<!-- rosbag play -->
+	<node pkg="rosbag" type="play" name="player" output="screen" args="-d 1 -l $(find monocular_pose_estimator)/bags/test_data.bag"/>
+</launch>
