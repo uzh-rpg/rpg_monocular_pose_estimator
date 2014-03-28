@@ -68,16 +68,16 @@ Open the index.html file in *html* directory that has been produced.
 Test Installation on Basic Dataset
 ----------------------------------
 
-In order to test the installation on a data set, download the data set from [here](http://rpg.ifi.uzh.ch/pose_estimation_system/test_data.tar.gz), and follow these instructions.
+In order to test the installation on a data set, download the data set from [here](http://rpg.ifi.uzh.ch/data/monocular-pose-estimator-data.tar.gz), and follow these instructions.
 
 1.    Download and Untar a sample ROS bag file
 
           roscd monocular_pose_estimator
           mkdir bags
           cd bags
-          wget http://rpg.ifi.uzh.ch/pose_estimation_system/test_data.tar.gz
-          tar -zxvf test_data.tar.gz
-          rm test_data.tar.gz
+          wget http://rpg.ifi.uzh.ch/data/monocular-pose-estimator-data.tar.gz
+          tar -zxvf monocular-pose-estimator-data.tar.gz
+          rm monocular-pose-estimator-data.tar.gz
 
 2.    Launch the demo launch file using
 
@@ -277,7 +277,3 @@ The placement of the LEDs on the target object can be arbitrary, but must be non
 ### Camera
 
 The camera used was a [MatrixVision](http://www.matrix-vision.com/) mvBlueFOX-MLC200w monochrome camera fitted with an infrared-pass filter. Its resolution is 752x480 pixels.
-
-
-
-
