@@ -6,7 +6,7 @@
  */
 
 /**
- * \file dataTypes.h
+ * \file datatypes.h
  * \brief File containing the type definitions that are used in the monocular pose estimator.
  *
  */

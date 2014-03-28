@@ -1,6 +1,6 @@
 ##
 
-RPG Monocular Pose Estimator {#README}
+RPG Monocular Pose Estimator
 ======================
 
 Disclaimer

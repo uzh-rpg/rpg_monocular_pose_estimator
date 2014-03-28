@@ -9,13 +9,13 @@ The monocular pose estimator uses infrared LEDs mounted on a target object and a
 
 The LEDs are detected in the image. The positions of the LEDs on the target object are known. Consequently, the pose of the target object can be calculated.
 
-For more information on the installation, and usage of the program, including the setting of parameters please see the [README](\ref README).
+For more information on the installation, and usage of the program, including the setting of parameters please see the [README](md_README.html).
 
 A brief outline of how the program executes is presented in the sections below.
 
 \section desc Program Execution
 
-This section explains the basic outline of how the program executes. For an an explanation of how to install and use the package, please see the [README](\ref README).
+This section explains the basic outline of how the program executes. For an an explanation of how to install and use the package, please see the [README](md_README.html).
 
 \note For a more detailed explanation of how each of these steps is executed, please consult our paper \cite Faessler:2014 [(A Monocular Pose Estimation System based on Infrared LEDs)](http://rpg.ifi.uzh.ch/docs/ICRA14_Faessler.pdf) or refer to the more detailed function descriptions of the [classes](./annotated.html) and [source files](./files.html) which contain descriptions of the individual functions.
 
