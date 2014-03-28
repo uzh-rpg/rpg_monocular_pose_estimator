@@ -23,6 +23,17 @@ M. Faessler, E. Mueggler, K. Schwabe, D. Scaramuzza:
 **A Monocular Pose Estimation System based on Infrared LEDs.**
 IEEE International Conference on Robotics and Automation (ICRA), Hong Kong, 2014.
 
+    @inproceedings{Faessler2014ICRA,
+      author = {Faessler, Matthias and Mueggler, Elias and Schwabe, Karl and Scaramuzza, Davide},
+      title = {A Monocular Pose Estimation System based on Infrared {LED}s},
+      booktitle = {IEEE International Conference on Robotics and Automation (ICRA)},
+      year = {2014}
+    }
+
+Watch the [video](http://www.youtube.com/watch?v=8Ui3MoOxcPQ) demonstrating the RPG Monocular Pose Estimator:   
+[![ RPG Monocular Pose Estimator Video](http://img.youtube.com/vi/8Ui3MoOxcPQ/0.jpg)](http://www.youtube.com/watch?v=8Ui3MoOxcPQ)
+
+
 Installation
 ------------
 
