@@ -3,10 +3,13 @@
 RPG Monocular Pose Estimator
 ======================
 
-Disclaimer
+Disclaimer and License
 ---------------
 
 The RPG Monocular Pose Estimator has been tested under ROS-Groovy and Ubuntu 12.04 as well as under ROS-Hydro and Ubuntu 13.10. This is research code, expect that it changes often and any fitness for a particular purpose is disclaimed.
+
+The source code is released under an LGPL licence. Please contact the authors for a commercial license.
+
 
 Package Summary
 ---------------
