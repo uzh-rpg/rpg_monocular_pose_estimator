@@ -47,6 +47,7 @@ Installation
 The RPG Monocular Pose Estimator is built on the Robotic Operating System (ROS). In order to install the package, ROS has to be installed.
 
 - In order to install the Robot Operating System (ROS), please follow the instructions provided in the [link](http://wiki.ros.org).
+- Make sure you have properly set up a ROS catkin workspace as described [here](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment).
 
 Additionally, the RPG Monocular Pose Estimator makes use of [OpenCV](http://opencv.org) for image processing and the [Eigen](http://eigen.tuxfamily.org) linear algebra library. These should come preinstalled with ROS, however, if the dependency is missing they can be installed from their respective websites:
 
