@@ -12,7 +12,7 @@
  *
  */
 
-#include "monocular_pose_estimator/monocular_pose_estimator_node.h"
+#include "monocular_pose_estimator/monocular_pose_estimator.h"
 
 namespace monocular_pose_estimator
 {

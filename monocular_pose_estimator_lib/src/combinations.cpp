@@ -11,7 +11,7 @@
  *
  */
 
-#include "monocular_pose_estimator/combinations.h"
+#include "monocular_pose_estimator_lib/combinations.h"
 
 namespace monocular_pose_estimator
 {

@@ -1,0 +1,12 @@
+<package>
+  <name>monocular_pose_estimator_lib</name>
+  <version>1.0.0</version>
+  <description>
+     monocular_pose_estimator_lib
+  </description>
+  <maintainer email="faessler@ifi.uzh.ch">Matthias Faessler</maintainer>
+  <license>GNU LGPL</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>

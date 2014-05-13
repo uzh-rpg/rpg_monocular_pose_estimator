@@ -72,7 +72,7 @@ The Doxygen configuration file is located in the *doxygen_documentation* folder 
 
 Change to the doxygen_documentation directory:
 
-    roscd monocular_pose_estimator/doxygen_documentation
+    roscd monocular_pose_estimator/../doxygen_documentation
 
 To produce the documentation, run Doxygen on the configuration file:
 

@@ -57,7 +57,7 @@
  * \brief File containing the definitions of the functions for the P3P class
  */
 
-#include "monocular_pose_estimator/p3p.h"
+#include "monocular_pose_estimator_lib/p3p.h"
 
 namespace monocular_pose_estimator
 {
