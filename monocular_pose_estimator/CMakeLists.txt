@@ -7,7 +7,9 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   image_transport
   dynamic_reconfigure
+  sensor_msgs
   geometry_msgs
+  monocular_pose_estimator_lib
 )
 
 # since we need eigen search it as well
@@ -23,7 +25,7 @@ generate_dynamic_reconfigure_options(cfg/MonocularPoseEstimator.cfg)
 # export the dependencies of this package for who ever depends on us
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS roscpp cv_bridge image_transport dynamic_reconfigure geometry_msgs
+  CATKIN_DEPENDS roscpp cv_bridge image_transport dynamic_reconfigure sensor_msgs geometry_msgs monocular_pose_estimator_lib
   DEPENDS eigen OpenCV
 )
 
@@ -37,12 +39,7 @@ include_directories(
 
 # make the executable
 add_executable(monocular_pose_estimator 
-  src/monocular_pose_estimator_node.cpp 
-  src/pose_estimator.cpp 
-  src/p3p.cpp 
-  src/led_detector.cpp 
-  src/combinations.cpp
-  src/visualization.cpp
+  src/monocular_pose_estimator.cpp
 )
 
 # to build the executable we depend on other packets,
@@ -54,4 +51,5 @@ target_link_libraries(monocular_pose_estimator
    yaml-cpp
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
+   monocular_pose_estimator_lib
  )

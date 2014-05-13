@@ -17,7 +17,7 @@
 #include <Eigen/Dense>
 #include <Eigen/Geometry>
 #include <math.h>
-#include "monocular_pose_estimator/datatypes.h"
+#include "monocular_pose_estimator_lib/datatypes.h"
 
 namespace monocular_pose_estimator
 {

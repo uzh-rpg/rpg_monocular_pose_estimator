@@ -11,7 +11,7 @@
  *
  */
 
-#include "monocular_pose_estimator/led_detector.h"
+#include "monocular_pose_estimator_lib/led_detector.h"
 
 namespace monocular_pose_estimator
 {

@@ -11,7 +11,7 @@
  *
  */
 
-#include "monocular_pose_estimator/visualization.h"
+#include "monocular_pose_estimator_lib/visualization.h"
 #include <stdio.h>
 #include "ros/ros.h"
 

@@ -17,11 +17,11 @@
 #include <Eigen/Geometry>
 #include <math.h>
 #include <vector>
-#include "monocular_pose_estimator/datatypes.h"
-#include "monocular_pose_estimator/led_detector.h"
-#include "monocular_pose_estimator/visualization.h"
-#include "monocular_pose_estimator/combinations.h"
-#include "monocular_pose_estimator/p3p.h"
+#include "monocular_pose_estimator_lib/datatypes.h"
+#include "monocular_pose_estimator_lib/led_detector.h"
+#include "monocular_pose_estimator_lib/visualization.h"
+#include "monocular_pose_estimator_lib/combinations.h"
+#include "monocular_pose_estimator_lib/p3p.h"
 #include <iostream>
 #include <opencv2/opencv.hpp>
 

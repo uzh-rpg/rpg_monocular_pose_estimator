@@ -32,7 +32,7 @@
 #include <dynamic_reconfigure/server.h>
 #include <monocular_pose_estimator/MonocularPoseEstimatorConfig.h>
 
-#include "monocular_pose_estimator/pose_estimator.h"
+#include "monocular_pose_estimator_lib/pose_estimator.h"
 
 namespace monocular_pose_estimator
 {
