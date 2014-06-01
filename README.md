@@ -20,7 +20,7 @@ The positions of the LEDs on the target object are provided by the user in a YAM
 
 ### Publication
 
-This package is released in combination with the following [ICRA 2014 publication](http://rpg.ifi.uzh.ch/docs/ICRA14_Faessler.pdf):
+If you use this work in an academic context, please cite the following [ICRA 2014 publication](http://rpg.ifi.uzh.ch/docs/ICRA14_Faessler.pdf):
 
 M. Faessler, E. Mueggler, K. Schwabe, D. Scaramuzza: 
 **A Monocular Pose Estimation System based on Infrared LEDs.**
