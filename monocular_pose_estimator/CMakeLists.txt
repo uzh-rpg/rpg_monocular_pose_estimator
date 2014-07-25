@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   geometry_msgs
   monocular_pose_estimator_lib
+  cmake_modules
 )
 
 # since we need eigen search it as well

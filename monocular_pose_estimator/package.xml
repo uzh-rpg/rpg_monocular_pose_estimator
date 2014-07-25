@@ -16,6 +16,7 @@
   <build_depend>sensor_msgs</build_depend>
   <build_depend>geometry_msgs</build_depend>
   <build_depend>monocular_pose_estimator_lib</build_depend>
+  <build_depend>cmake_modules</build_depend>
 
   <run_depend>roscpp</run_depend>
   <run_depend>cv_bridge</run_depend>
