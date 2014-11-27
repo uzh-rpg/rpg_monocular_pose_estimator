@@ -14,7 +14,7 @@ The RPG Monocular Pose Estimator has been tested under the following setups:
 
 This is research code, expect that it changes often and any fitness for a particular purpose is disclaimed.
 
-The source code is released under an GPL licence. Please contact the authors for a commercial license.
+The source code is released under a GPL licence. Please contact the authors for a commercial license.
 
 
 Package Summary
