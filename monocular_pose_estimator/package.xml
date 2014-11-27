@@ -5,7 +5,7 @@
      monocular_pose_estimator
   </description>
   <maintainer email="faessler@ifi.uzh.ch">Matthias Faessler</maintainer>
-  <license>GNU LGPL</license>
+  <license>GNU GPL</license>
 
   <buildtool_depend>catkin</buildtool_depend>
 
