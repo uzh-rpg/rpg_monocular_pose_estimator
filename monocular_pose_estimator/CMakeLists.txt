@@ -45,7 +45,7 @@ add_executable(monocular_pose_estimator
 
 # to build the executable we depend on other packets,
 # they need to be build beforehand, especially the messages
-add_dependencies(monocular_pose_estimator ${catkin_EXPORTED_TARGETS}  ${PROJECT_NAME}_gencf)
+add_dependencies(monocular_pose_estimator ${catkin_EXPORTED_TARGETS}  ${PROJECT_NAME}_gencfg)
 
 # link the executable to the necessary libs
 target_link_libraries(monocular_pose_estimator
