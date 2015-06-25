@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.4.6)
 project(monocular_pose_estimator_lib)
 
+set(CMAKE_CXX_FLAGS "-O3")
+
 find_package(catkin REQUIRED COMPONENTS cmake_modules)
 find_package(Eigen REQUIRED)
 find_package(OpenCV REQUIRED)
