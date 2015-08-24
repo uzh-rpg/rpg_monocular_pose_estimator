@@ -36,7 +36,7 @@ namespace monocular_pose_estimator
  * Constructor of the Monocular Pose Estimation Node class
  *
  */
-MPENode::MPENode()
+MPENode::MPENode() : have_camera_info_(false)
 {
   // Set up a dynamic reconfigure server.
   // This should be done before reading parameter server values.
