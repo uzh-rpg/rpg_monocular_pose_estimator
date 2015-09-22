@@ -41,7 +41,7 @@ include_directories(
 )
 
 # make the executable
-add_executable(monocular_pose_estimator 
+add_executable(monocular_pose_estimator
   src/monocular_pose_estimator.cpp
 )
 
@@ -54,5 +54,4 @@ target_link_libraries(monocular_pose_estimator
    yaml-cpp
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
-   monocular_pose_estimator_lib
  )
