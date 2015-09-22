@@ -105,17 +105,16 @@ void MPENode::cameraInfoCallback(const sensor_msgs::CameraInfo::ConstPtr& msg)
   {
     cam_info_ = *msg;
 
-    // Calibrated camera
     Matrix3x4d camera_matrix;
-    camera_matrix(0, 0) = cam_info_.P[0];
-    camera_matrix(0, 2) = cam_info_.P[2];
-    camera_matrix(1, 1) = cam_info_.P[5];
-    camera_matrix(1, 2) = cam_info_.P[6];
+    camera_matrix(0, 0) = cam_info_.K[0];
+    camera_matrix(0, 2) = cam_info_.K[2];
+    camera_matrix(1, 1) = cam_info_.K[4];
+    camera_matrix(1, 2) = cam_info_.K[5];
     camera_matrix(2, 2) = 1.0;
+    trackable_object_.setCameraProjectionMatrix(camera_matrix);
 
+    // Calibrated camera
     trackable_object_.camera_matrix_K_ = cv::Mat(3, 3, CV_64F);
-    trackable_object_.camera_matrix_P_ = cv::Mat(3, 4, CV_64F);
-
     trackable_object_.camera_matrix_K_.at<double>(0, 0) = cam_info_.K[0];
     trackable_object_.camera_matrix_K_.at<double>(0, 1) = cam_info_.K[1];
     trackable_object_.camera_matrix_K_.at<double>(0, 2) = cam_info_.K[2];
@@ -126,23 +125,9 @@ void MPENode::cameraInfoCallback(const sensor_msgs::CameraInfo::ConstPtr& msg)
     trackable_object_.camera_matrix_K_.at<double>(2, 1) = cam_info_.K[7];
     trackable_object_.camera_matrix_K_.at<double>(2, 2) = cam_info_.K[8];
     trackable_object_.camera_distortion_coeffs_ = cam_info_.D;
-    trackable_object_.camera_matrix_P_.at<double>(0, 0) = cam_info_.P[0];
-    trackable_object_.camera_matrix_P_.at<double>(0, 1) = cam_info_.P[1];
-    trackable_object_.camera_matrix_P_.at<double>(0, 2) = cam_info_.P[2];
-    trackable_object_.camera_matrix_P_.at<double>(0, 3) = cam_info_.P[3];
-    trackable_object_.camera_matrix_P_.at<double>(1, 0) = cam_info_.P[4];
-    trackable_object_.camera_matrix_P_.at<double>(1, 1) = cam_info_.P[5];
-    trackable_object_.camera_matrix_P_.at<double>(1, 2) = cam_info_.P[6];
-    trackable_object_.camera_matrix_P_.at<double>(1, 3) = cam_info_.P[7];
-    trackable_object_.camera_matrix_P_.at<double>(2, 0) = cam_info_.P[8];
-    trackable_object_.camera_matrix_P_.at<double>(2, 1) = cam_info_.P[9];
-    trackable_object_.camera_matrix_P_.at<double>(2, 2) = cam_info_.P[10];
-    trackable_object_.camera_matrix_P_.at<double>(2, 3) = cam_info_.P[11];
 
-    trackable_object_.setCameraProjectionMatrix(camera_matrix);
     have_camera_info_ = true;
     ROS_INFO("Camera calibration information obtained.");
-    ROS_DEBUG_STREAM("Camera calibration matrix: \n" << camera_matrix);
   }
 
 }

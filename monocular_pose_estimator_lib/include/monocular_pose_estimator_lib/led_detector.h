@@ -79,18 +79,13 @@ public:
    *                         0 & f_y & c_y \\
    *                         0 & 0 & 1 \end{array} \right] \f$
    * \param camera_distortion_coeffs the vector containing the 4, 5 or 8 distortion coefficients of the camera \f$ (k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6]]) \f$
-   * \param camera_matrix_P the 4x4 camera projection matrix that maps real world points to the positions on the undistorted image \f$P = \left[ \begin{array}{cccc}
-   *                         f_x & 0 & c_x & 0 \\
-   *                         0 & f_y & c_y & 0 \\
-   *                         0 & 0 & 1 & 0 \end{array} \right] \f$
    *
    */
   static void findLeds(const cv::Mat &image, cv::Rect ROI, const int &threshold_value, const double &gaussian_sigma,
                        const double &min_blob_area, const double &max_blob_area,
                        const double &max_width_height_distortion, const double &max_circular_distortion,
                        List2DPoints &pixel_positions, std::vector<cv::Point2f> &distorted_detection_centers,
-                       const cv::Mat &camera_matrix_K, const std::vector<double> &camera_distortion_coeffs,
-                       const cv::Mat &camera_matrix_P);
+                       const cv::Mat &camera_matrix_K, const std::vector<double> &camera_distortion_coeffs);
 
   /**
    * Calculates the region of interest (ROI) in the distorted image in which the points lie.
@@ -103,14 +98,12 @@ public:
    * \param border_size size of the boarder around the bounding box of points
    * \param camera_matrix_K camera matrix
    * \param camera_distortion_coeffs the distortion coefficients of the camera
-   * \param camera_matrix_P projection matrix that takes points from the world and projects them onto the rectified image plane
    *
    * \return the rectangular region of interest to be processed in the image
    *
    */
   static cv::Rect determineROI(List2DPoints pixel_positions, cv::Size image_size, const int border_size,
-                               const cv::Mat &camera_matrix_K, const std::vector<double> &camera_distortion_coeffs,
-                               const cv::Mat &camera_matrix_P);
+                               const cv::Mat &camera_matrix_K, const std::vector<double> &camera_distortion_coeffs);
 
 private:
 
@@ -137,12 +130,10 @@ private:
    * \param dst (output) vector to which the distorted points will be output
    * \param camera_matrix_K camera matrix
    * \param distortion_matrix the distortion coefficients of the camera
-   * \param projection_matrix_P projection matrix that takes points from the world and projects them onto the rectified image plane
    *
    */
   static void distortPoints(const std::vector<cv::Point2f> & src, std::vector<cv::Point2f> & dst,
-                            const cv::Mat & camera_matrix_K, const std::vector<double> & distortion_matrix,
-                            const cv::Mat & projection_matrix_P);
+                            const cv::Mat & camera_matrix_K, const std::vector<double> & distortion_matrix);
 
 };
 
