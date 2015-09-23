@@ -250,18 +250,19 @@ List2DPoints PoseEstimator::getImagePoints()
 
 inline Eigen::Vector2d PoseEstimator::project2d(Eigen::Vector4d point, Eigen::Matrix4d transform)
 {
-//  // convert matrix interna
-//  Matrix3x4d camera_matrix;
-//  for (int i=0; i<3; i++)
-//  {
-//    for (int j=0; j<3; j++)
-//    {
-//      camera_matrix(i, j) = camera_matrix_K_.at<double>(i, j);
-//    }
-//  }
+  // convert matrix interna
+  Matrix3x4d camera_matrix;
+  for (int i=0; i<3; i++)
+  {
+    for (int j=0; j<3; j++)
+    {
+      camera_matrix(i, j) = camera_matrix_K_.at<double>(i, j);
+    }
+    camera_matrix(i, 3) = 0.0;
+  }
 
   Eigen::Vector3d temp;
-  temp = camera_projection_matrix_ * transform * point;
+  temp = camera_matrix * transform * point;
   temp = temp / temp(2);
   return temp.head<2>();
 }
@@ -284,17 +285,6 @@ VectorXuPairs PoseEstimator::getCorrespondences()
   return correspondences_;
 }
 
-void PoseEstimator::setCameraProjectionMatrix(Matrix3x4d M)
-{
-  camera_projection_matrix_ = M;
-}
-
-Matrix3x4d PoseEstimator::getCameraProjectionMatrix()
-{
-  return camera_projection_matrix_;
-}
-
-
 void PoseEstimator::calculateImageVectors()
 {
   unsigned num_image_points = image_points_.size();
@@ -303,8 +293,8 @@ void PoseEstimator::calculateImageVectors()
 
   for (unsigned i = 0; i < num_image_points; ++i)
   {
-    single_vector(0) = (image_points_(i)(0) - camera_projection_matrix_(0, 2)) / camera_projection_matrix_(0, 0);
-    single_vector(1) = (image_points_(i)(1) - camera_projection_matrix_(1, 2)) / camera_projection_matrix_(1, 1);
+    single_vector(0) = (image_points_(i)(0) - camera_matrix_K_.at<double>(0, 2)) / camera_matrix_K_.at<double>(0, 0);
+    single_vector(1) = (image_points_(i)(1) - camera_matrix_K_.at<double>(1, 2)) / camera_matrix_K_.at<double>(1, 1);
     single_vector(2) = 1;
     image_vectors_(i) = single_vector / single_vector.norm();
   }
@@ -755,8 +745,8 @@ void PoseEstimator::optimisePose()
   R.setIdentity(); // Assume the variance is one pixel in u and v.
   Matrix2x6d J;
   Eigen::Vector2d focal_lengths;
-  focal_lengths(0) = camera_projection_matrix_(0, 0);
-  focal_lengths(1) = camera_projection_matrix_(1, 1);
+  focal_lengths(0) = camera_matrix_K_.at<double>(0, 0);
+  focal_lengths(1) = camera_matrix_K_.at<double>(1, 1);
 
   Vector6d dT;
 

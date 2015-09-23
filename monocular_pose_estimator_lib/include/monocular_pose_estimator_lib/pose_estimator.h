@@ -91,12 +91,6 @@ public:
   unsigned roi_border_thickness_; //!< This is the thickness of the boarder (in pixels) around the predicted area of the LEDs in the image that defines the region of interest for image processing and detection of the LEDs.
 
 
-
-  void setCameraProjectionMatrix(Matrix3x4d M);
-  Matrix3x4d getCameraProjectionMatrix();
-  Matrix3x4d camera_projection_matrix_;
-
-
 private:
 
   /**

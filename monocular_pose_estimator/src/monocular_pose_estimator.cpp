@@ -105,14 +105,6 @@ void MPENode::cameraInfoCallback(const sensor_msgs::CameraInfo::ConstPtr& msg)
   {
     cam_info_ = *msg;
 
-    Matrix3x4d camera_matrix;
-    camera_matrix(0, 0) = cam_info_.K[0];
-    camera_matrix(0, 2) = cam_info_.K[2];
-    camera_matrix(1, 1) = cam_info_.K[4];
-    camera_matrix(1, 2) = cam_info_.K[5];
-    camera_matrix(2, 2) = 1.0;
-    trackable_object_.setCameraProjectionMatrix(camera_matrix);
-
     // Calibrated camera
     trackable_object_.camera_matrix_K_ = cv::Mat(3, 3, CV_64F);
     trackable_object_.camera_matrix_K_.at<double>(0, 0) = cam_info_.K[0];
