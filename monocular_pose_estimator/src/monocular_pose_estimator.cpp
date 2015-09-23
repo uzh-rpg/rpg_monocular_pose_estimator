@@ -36,7 +36,8 @@ namespace monocular_pose_estimator
  * Constructor of the Monocular Pose Estimation Node class
  *
  */
-MPENode::MPENode() : have_camera_info_(false)
+MPENode::MPENode(const ros::NodeHandle& nh, const ros::NodeHandle& nh_private)
+  : nh_(nh), nh_private_(nh_private), have_camera_info_(false)
 {
   // Set up a dynamic reconfigure server.
   // This should be done before reading parameter server values.
@@ -253,14 +254,3 @@ void MPENode::dynamicParametersCallback(monocular_pose_estimator::MonocularPoseE
 }
 
 } // namespace monocular_pose_estimator
-
-int main(int argc, char* argv[])
-{
-  ros::init(argc, argv, "monocular_pose_tracker");
-
-  monocular_pose_estimator::MPENode mpe_node;
-
-  ros::spin();
-
-  return 0;
-}

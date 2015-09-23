@@ -57,6 +57,7 @@ class MPENode
 private:
 
   ros::NodeHandle nh_;
+  ros::NodeHandle nh_private_;
 
   image_transport::Publisher image_pub_; //!< The ROS image publisher that publishes the visualisation image
   ros::Publisher pose_pub_; //!< The ROS publisher that publishes the estimated pose.
@@ -76,7 +77,8 @@ private:
 
 public:
 
-  MPENode();
+  MPENode(const ros::NodeHandle& nh, const ros::NodeHandle& nh_private);
+  MPENode() : MPENode( ros::NodeHandle(), ros::NodeHandle("~") ){}
   ~MPENode();
 
   void cameraInfoCallback(const sensor_msgs::CameraInfo::ConstPtr& msg);

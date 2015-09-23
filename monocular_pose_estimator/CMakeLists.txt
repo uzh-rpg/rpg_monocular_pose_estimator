@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.4.6)
 project(monocular_pose_estimator)
 
-set(CMAKE_CXX_FLAGS "-O3")
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS} -O3")
 
 # search for everything we need to build the package
 find_package(catkin REQUIRED COMPONENTS
@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   monocular_pose_estimator_lib
   cmake_modules
+  nodelet
 )
 
 # since we need eigen search it as well
@@ -28,7 +29,7 @@ generate_dynamic_reconfigure_options(cfg/MonocularPoseEstimator.cfg)
 # export the dependencies of this package for who ever depends on us
 catkin_package(
   INCLUDE_DIRS include
-  CATKIN_DEPENDS roscpp cv_bridge image_transport dynamic_reconfigure sensor_msgs geometry_msgs monocular_pose_estimator_lib
+  CATKIN_DEPENDS roscpp cv_bridge image_transport dynamic_reconfigure sensor_msgs geometry_msgs monocular_pose_estimator_lib nodelet
   DEPENDS eigen OpenCV
 )
 
@@ -40,19 +41,29 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
 )
 
-# make the executable
-add_executable(monocular_pose_estimator 
-  src/monocular_pose_estimator.cpp
-)
 
-# to build the executable we depend on other packets,
-# they need to be build beforehand, especially the messages
+# make the node
+add_executable(monocular_pose_estimator
+  src/node.cpp src/monocular_pose_estimator.cpp
+)
 add_dependencies(monocular_pose_estimator ${catkin_EXPORTED_TARGETS}  ${PROJECT_NAME}_gencfg)
 
-# link the executable to the necessary libs
 target_link_libraries(monocular_pose_estimator
    yaml-cpp
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
-   monocular_pose_estimator_lib
+ )
+
+
+# make the nodelet
+add_library(monocular_pose_estimator_nodelet
+  src/nodelet.cpp src/monocular_pose_estimator.cpp
+)
+
+add_dependencies(monocular_pose_estimator_nodelet ${catkin_EXPORTED_TARGETS}  ${PROJECT_NAME}_gencfg)
+
+target_link_libraries(monocular_pose_estimator_nodelet
+   yaml-cpp
+   ${catkin_LIBRARIES}
+   ${OpenCV_LIBRARIES}
  )
