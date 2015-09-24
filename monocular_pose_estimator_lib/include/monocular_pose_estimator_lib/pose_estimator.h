@@ -65,7 +65,6 @@ private:
   List2DPoints predicted_pixel_positions_; //!< Stores the predicted pixel positions of the markers in the image. \see predictMarkerPositionsInImage
   List3DPoints image_vectors_; //!< Stores the unit vectors leading from the camera centre of projection out to the world points/marker points - these are used in the P3P algorithm. \see setImagePoints, calculateImageVectors
   VectorXuPairs correspondences_; //!< Stores the correspondences of the LED markers and the detected markers in the image
-  Matrix3x4d camera_projection_matrix_; //!< Stores the camera calibration matrix. This is the 3x4 projection matrix that projects the world points to the image coordinates stored in #image_points_.
   double back_projection_pixel_tolerance_; //!< Stores the pixel tolerance that determines whether a back projection is valid or not. \see checkCorrespondences, initialise
   double nearest_neighbour_pixel_tolerance_; //!< Stores the pixel tolerance that determines the correspondences between the LEDs and the detections in the image when predicting the position of the LEDs in the image. \see findCorrespondences
   double certainty_threshold_; //!< Stores the ratio of how many of the back-projected points must be within the #back_projection_pixel_tolerance_ for a correspondence between the LEDs and the detections to be correct.
@@ -81,7 +80,6 @@ private:
 
 public:
   cv::Mat camera_matrix_K_; //!< Variable to store the camera matrix as an OpenCV matrix
-  cv::Mat camera_matrix_P_; //!< Variable to store the projection matrix (as an OpenCV matrix) that projects points onto the rectified image plane.
   std::vector<double> camera_distortion_coeffs_; //!< Variable to store the camera distortion parameters
 
   int detection_threshold_value_; //!< The current threshold value for the image for LED detection
@@ -91,6 +89,7 @@ public:
   double max_width_height_distortion_; //!< This is a parameter related to the circular distortion of the detected blobs. It is the maximum allowable distortion of a bounding box around the detected blob calculated as the ratio of the width to the height of the bounding rectangle. Ideally the ratio of the width to the height of the bounding rectangle should be 1.
   double max_circular_distortion_; //!< This is a parameter related to the circular distortion of the detected blobs. It is the maximum allowable distortion of a bounding box around the detected blob, calculated as the area of the blob divided by pi times half the height or half the width of the bounding rectangle.
   unsigned roi_border_thickness_; //!< This is the thickness of the boarder (in pixels) around the predicted area of the LEDs in the image that defines the region of interest for image processing and detection of the LEDs.
+
 
 private:
 
@@ -452,26 +451,6 @@ public:
    *
    */
   List2DPoints getPredictedPixelPositions();
-
-  /**
-   * Sets the camera matrix.
-   *
-   * \param M the 3x4 homogeneous camera projection matrix that projects points in the camera-fixed coordinate frame onto the camera image plane
-   *
-   * \see camera_matrix
-   *
-   */
-  void setCameraProjectionMatrix(Matrix3x4d M);
-
-  /**
-   * Returns the camera matrix.
-   *
-   * \return the 3x4 homogeneous camera projection matrix that projects points in the camera-fixed coordinate frame onto the camera image plane
-   *
-   * \see camera_matrix
-   *
-   */
-  Matrix3x4d getCameraProjectionMatrix();
 
   /**
    * Sets the correspondences between the LEDs/markers on the object and the image detections.
