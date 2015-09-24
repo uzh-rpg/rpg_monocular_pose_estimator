@@ -1,5 +1,5 @@
-<library path="lib/libsample_nodelet">
-  <class name="monocular_pose_estimator/MPENode" type="monocular_pose_estimator::MPENode" base_class_type="nodelet::Nodelet">
+<library path="lib/libmonocular_pose_estimator_nodelet">
+  <class name="monocular_pose_estimator/MPENodelet" type="monocular_pose_estimator::MPENodelet" base_class_type="nodelet::Nodelet">
     <description>
       A nodelet wrapper for the monocular_pose_estimator.
     </description>

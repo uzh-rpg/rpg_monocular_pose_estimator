@@ -61,7 +61,7 @@ MPENode::MPENode(const ros::NodeHandle& nh, const ros::NodeHandle& nh_private)
 
   // Read in the marker positions from the YAML parameter file
   XmlRpc::XmlRpcValue points_list;
-  if (!nh_.getParam(ros::this_node::getName() + "/marker_positions", points_list))
+  if (!nh_private_.getParam("marker_positions", points_list))
   {
     ROS_ERROR(
         "%s: No reference file containing the marker positions, or the file is improperly formatted. Use the 'marker_positions_file' parameter in the launch file.",
@@ -250,7 +250,7 @@ void MPENode::dynamicParametersCallback(monocular_pose_estimator::MonocularPoseE
   trackable_object_.setCertaintyThreshold(config.certainty_threshold);
   trackable_object_.setValidCorrespondenceThreshold(config.valid_correspondence_threshold);
 
-  ROS_INFO("Parameters changed");
+  ROS_INFO("Parameters changed, %d", config.roi_border_thickness);
 }
 
 } // namespace monocular_pose_estimator
