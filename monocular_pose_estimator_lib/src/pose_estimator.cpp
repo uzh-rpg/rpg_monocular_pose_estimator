@@ -75,7 +75,7 @@ bool PoseEstimator::estimateBodyPose(cv::Mat image, double time_to_predict)
     LEDDetector::findLeds(image, region_of_interest_, detection_threshold_value_, gaussian_sigma_, min_blob_area_,
                           max_blob_area_, max_width_height_distortion_, max_circular_distortion_,
                           detected_led_positions, distorted_detection_centers_, camera_matrix_K_,
-                          camera_distortion_coeffs_, camera_matrix_P_);
+                          camera_distortion_coeffs_);
 
     if (detected_led_positions.size() >= min_num_leds_detected_) // If found enough LEDs, Reinitialise
     {
@@ -103,7 +103,7 @@ bool PoseEstimator::estimateBodyPose(cv::Mat image, double time_to_predict)
     LEDDetector::findLeds(image, region_of_interest_, detection_threshold_value_, gaussian_sigma_, min_blob_area_,
                           max_blob_area_, max_width_height_distortion_, max_circular_distortion_,
                           detected_led_positions, distorted_detection_centers_, camera_matrix_K_,
-                          camera_distortion_coeffs_, camera_matrix_P_);
+                          camera_distortion_coeffs_);
 
     bool repeat_check = true;
     unsigned num_loops = 0;
@@ -131,7 +131,7 @@ bool PoseEstimator::estimateBodyPose(cv::Mat image, double time_to_predict)
           LEDDetector::findLeds(image, region_of_interest_, detection_threshold_value_, gaussian_sigma_, min_blob_area_,
                                 max_blob_area_, max_width_height_distortion_, max_circular_distortion_,
                                 detected_led_positions, distorted_detection_centers_, camera_matrix_K_,
-                                camera_distortion_coeffs_, camera_matrix_P_);
+                                camera_distortion_coeffs_);
 
         }
         else
@@ -248,20 +248,21 @@ List2DPoints PoseEstimator::getImagePoints()
   return image_points_;
 }
 
-void PoseEstimator::setCameraProjectionMatrix(Matrix3x4d M)
-{
-  camera_projection_matrix_ = M;
-}
-
-Matrix3x4d PoseEstimator::getCameraProjectionMatrix()
-{
-  return camera_projection_matrix_;
-}
-
 inline Eigen::Vector2d PoseEstimator::project2d(Eigen::Vector4d point, Eigen::Matrix4d transform)
 {
+  // convert matrix interna
+  Matrix3x4d camera_matrix;
+  for (int i=0; i<3; i++)
+  {
+    for (int j=0; j<3; j++)
+    {
+      camera_matrix(i, j) = camera_matrix_K_.at<double>(i, j);
+    }
+    camera_matrix(i, 3) = 0.0;
+  }
+
   Eigen::Vector3d temp;
-  temp = camera_projection_matrix_ * transform * point;
+  temp = camera_matrix * transform * point;
   temp = temp / temp(2);
   return temp.head<2>();
 }
@@ -292,8 +293,8 @@ void PoseEstimator::calculateImageVectors()
 
   for (unsigned i = 0; i < num_image_points; ++i)
   {
-    single_vector(0) = (image_points_(i)(0) - camera_projection_matrix_(0, 2)) / camera_projection_matrix_(0, 0);
-    single_vector(1) = (image_points_(i)(1) - camera_projection_matrix_(1, 2)) / camera_projection_matrix_(1, 1);
+    single_vector(0) = (image_points_(i)(0) - camera_matrix_K_.at<double>(0, 2)) / camera_matrix_K_.at<double>(0, 0);
+    single_vector(1) = (image_points_(i)(1) - camera_matrix_K_.at<double>(1, 2)) / camera_matrix_K_.at<double>(1, 1);
     single_vector(2) = 1;
     image_vectors_(i) = single_vector / single_vector.norm();
   }
@@ -744,8 +745,9 @@ void PoseEstimator::optimisePose()
   R.setIdentity(); // Assume the variance is one pixel in u and v.
   Matrix2x6d J;
   Eigen::Vector2d focal_lengths;
-  focal_lengths(0) = camera_projection_matrix_(0, 0);
-  focal_lengths(1) = camera_projection_matrix_(1, 1);
+  focal_lengths(0) = camera_matrix_K_.at<double>(0, 0);
+  focal_lengths(1) = camera_matrix_K_.at<double>(1, 1);
+
   Vector6d dT;
 
   for (unsigned i = 0; i < max_itr; ++i)
@@ -823,7 +825,7 @@ void PoseEstimator::predictWithROI(double & time_to_predict, const cv::Mat & ima
 
   // Define region of interest (ROI)
   region_of_interest_ = LEDDetector::determineROI(getPredictedPixelPositions(), image.size(), roi_border_thickness_,
-                                                  camera_matrix_K_, camera_distortion_coeffs_, camera_matrix_P_);
+                                                  camera_matrix_K_, camera_distortion_coeffs_);
 }
 
 void PoseEstimator::findCorrespondencesAndPredictPose(double & time_to_predict)

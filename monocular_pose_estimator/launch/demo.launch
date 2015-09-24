@@ -19,6 +19,7 @@
 			<param name= "nearest_neighbour_pixel_tolerance" value = "7" />
 			<param name= "certainty_threshold" value = "0.75" />
 			<param name= "valid_correspondence_threshold" value = "0.7" />
+      		<param name= "roi_border_thickness" value="20" />
 		</node>
 	
 		<node name="view_visualisation_image" pkg="image_view" type="image_view" args="image:=/monocular_pose_estimator/image_with_detections" />

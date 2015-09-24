@@ -41,7 +41,6 @@ include_directories(
   ${OpenCV_INCLUDE_DIRS}
 )
 
-
 # make the node
 add_executable(monocular_pose_estimator
   src/node.cpp src/monocular_pose_estimator.cpp
@@ -53,7 +52,6 @@ target_link_libraries(monocular_pose_estimator
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
  )
-
 
 # make the nodelet
 add_library(monocular_pose_estimator_nodelet
@@ -67,3 +65,4 @@ target_link_libraries(monocular_pose_estimator_nodelet
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
  )
+ 
