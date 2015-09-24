@@ -250,7 +250,7 @@ void MPENode::dynamicParametersCallback(monocular_pose_estimator::MonocularPoseE
   trackable_object_.setCertaintyThreshold(config.certainty_threshold);
   trackable_object_.setValidCorrespondenceThreshold(config.valid_correspondence_threshold);
 
-  ROS_INFO("Parameters changed, %d", config.roi_border_thickness);
+  ROS_INFO("Parameters changed");
 }
 
 } // namespace monocular_pose_estimator
