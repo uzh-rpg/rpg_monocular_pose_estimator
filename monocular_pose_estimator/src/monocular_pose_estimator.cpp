@@ -36,7 +36,8 @@ namespace monocular_pose_estimator
  * Constructor of the Monocular Pose Estimation Node class
  *
  */
-MPENode::MPENode() : have_camera_info_(false)
+MPENode::MPENode(const ros::NodeHandle& nh, const ros::NodeHandle& nh_private)
+  : nh_(nh), nh_private_(nh_private), have_camera_info_(false)
 {
   // Set up a dynamic reconfigure server.
   // This should be done before reading parameter server values.
@@ -60,7 +61,7 @@ MPENode::MPENode() : have_camera_info_(false)
 
   // Read in the marker positions from the YAML parameter file
   XmlRpc::XmlRpcValue points_list;
-  if (!nh_.getParam(ros::this_node::getName() + "/marker_positions", points_list))
+  if (!nh_private_.getParam("marker_positions", points_list))
   {
     ROS_ERROR(
         "%s: No reference file containing the marker positions, or the file is improperly formatted. Use the 'marker_positions_file' parameter in the launch file.",
@@ -230,14 +231,3 @@ void MPENode::dynamicParametersCallback(monocular_pose_estimator::MonocularPoseE
 }
 
 } // namespace monocular_pose_estimator
-
-int main(int argc, char* argv[])
-{
-  ros::init(argc, argv, "monocular_pose_tracker");
-
-  monocular_pose_estimator::MPENode mpe_node;
-
-  ros::spin();
-
-  return 0;
-}

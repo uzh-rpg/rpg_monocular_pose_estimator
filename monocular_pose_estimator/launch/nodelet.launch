@@ -1,0 +1,35 @@
+<launch>
+
+	<!-- Name of the YAML file containing the marker positions -->
+	<arg name="YAML_file_name" default="demo_marker_positions"/>
+
+	<!-- File containing the the marker positions in the trackable's frame of reference -->
+	<arg name="marker_positions_file" default="$(find monocular_pose_estimator)/marker_positions/$(arg YAML_file_name).yaml"/>
+
+	<group ns="monocular_pose_estimator" >
+    <node pkg="nodelet" type="nodelet" name="mpe_nodelet_manager"  args="manager" output="screen">
+			<param name= "threshold_value" value = "140" />
+			<param name= "gaussian_sigma" value = "0.6" />
+			<param name= "min_blob_area" value = "10" />
+			<param name= "max_blob_area" value = "200" />
+			<param name= "max_width_height_distortion" value = "0.5" />
+			<param name= "max_circular_distortion" value = "0.5" />
+			<param name= "back_projection_pixel_tolerance" value = "5" />
+			<param name= "nearest_neighbour_pixel_tolerance" value = "7" />
+			<param name= "certainty_threshold" value = "0.75" />
+			<param name= "valid_correspondence_threshold" value = "0.7" />
+			<param name= "roi_border_thickness" value="20" />
+		</node>
+
+    <node pkg="nodelet" type="nodelet" name="monocular_pose_estimator_nodelet" args="load monocular_pose_estimator/MPENodelet mpe_nodelet_manager" output="screen">
+      <rosparam command="load" file="$(arg marker_positions_file)"/>
+			<!-- all other parameters are with the nodelet manager due to namespace issues with dynamic reconfigure -->
+    </node>
+
+  	<node name="view_visualisation_image" pkg="image_view" type="image_view" args="image:=/monocular_pose_estimator/image_with_detections" />
+  </group>
+
+	<!-- rosbag play -->
+	<node pkg="rosbag" type="play" name="player" output="screen" args="-d 1 -l $(find monocular_pose_estimator)/bags/test_data.bag"/>
+
+</launch>
