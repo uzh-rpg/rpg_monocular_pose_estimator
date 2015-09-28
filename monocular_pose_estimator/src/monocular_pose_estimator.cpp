@@ -156,7 +156,8 @@ void MPENode::imageCallback(const sensor_msgs::Image::ConstPtr& image_msg)
   // Get time at which the image was taken. This time is used to stamp the estimated pose and also calculate the position of where to search for the makers in the image
   double time_to_predict = image_msg->header.stamp.toSec();
 
-  if (trackable_object_.estimateBodyPose(image, time_to_predict)) // Only output the pose, if the pose was updated (i.e. a valid pose was found).
+  const bool found_body_pose = trackable_object_.estimateBodyPose(image, time_to_predict);
+  if (found_body_pose) // Only output the pose, if the pose was updated (i.e. a valid pose was found).
   {
     //Eigen::Matrix4d transform = trackable_object.getPredictedPose();
     Matrix6d cov = trackable_object_.getPoseCovariance();
@@ -187,25 +188,29 @@ void MPENode::imageCallback(const sensor_msgs::Image::ConstPtr& image_msg)
 
     // Publish the pose
     pose_pub_.publish(predicted_pose_);
-
-    if (image_pub_.getNumSubscribers() > 0)
-    {
-      cv::Mat visualized_image = image.clone();
-      cv::cvtColor(visualized_image, visualized_image, CV_GRAY2RGB);
-      trackable_object_.augmentImage(visualized_image);
-
-      // Publish image for visualization
-      cv_bridge::CvImage visualized_image_msg;
-      visualized_image_msg.header = image_msg->header;
-      visualized_image_msg.encoding = sensor_msgs::image_encodings::BGR8;
-      visualized_image_msg.image = visualized_image;
-
-      image_pub_.publish(visualized_image_msg.toImageMsg());
-    }
   }
   else
   { // If pose was not updated
     ROS_WARN("Unable to resolve a pose.");
+  }
+
+  // publish visualization image
+  if (image_pub_.getNumSubscribers() > 0)
+  {
+    cv::Mat visualized_image = image.clone();
+    cv::cvtColor(visualized_image, visualized_image, CV_GRAY2RGB);
+    if (found_body_pose)
+    {
+      trackable_object_.augmentImage(visualized_image);
+    }
+
+    // Publish image for visualization
+    cv_bridge::CvImage visualized_image_msg;
+    visualized_image_msg.header = image_msg->header;
+    visualized_image_msg.encoding = sensor_msgs::image_encodings::BGR8;
+    visualized_image_msg.image = visualized_image;
+
+    image_pub_.publish(visualized_image_msg.toImageMsg());
   }
 }
 
