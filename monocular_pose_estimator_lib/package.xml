@@ -1,14 +1,23 @@
-<package>
+<?xml version="1.0"?>
+<package format="2">
   <name>monocular_pose_estimator_lib</name>
-  <version>1.0.0</version>
-  <description>
-     monocular_pose_estimator_lib
-  </description>
+  <version>0.0.0</version>
+  <description>The monocular_pose_estimator_lib package</description>
+
   <maintainer email="faessler@ifi.uzh.ch">Matthias Faessler</maintainer>
   <license>GNU GPL</license>
 
+  <author>Karl Schwabe</author>
+  <author>Matthias Faessler</author>
+  <author>Elias Mueggler</author>
+
   <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>catkin_simple</buildtool_depend>
 
-  <build_depend>cmake_modules</build_depend>
+  <depend>eigen_catkin</depend>
+  <depend>roscpp</depend>
 
+  <export>
+    
+  </export>
 </package>
