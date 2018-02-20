@@ -73,6 +73,8 @@ Then clone the latest version from our *GitHub* repository into your catkin work
     vcs-import < rpg_monocular_pose_estimator/dependencies.yaml
     catkin_make
 
+Source your catkin workspace after this.
+
 ### Building the Documentation
 
 The RPG Monocular Pose Estimator makes use of [Doxygen](http://www.doxygen.org/‎) to produce its documentation. Please ensure that you have the latest version of Doxygen which can be installed with:
@@ -83,7 +85,7 @@ The Doxygen configuration file is located in the *doxygen_documentation* folder 
 
 Change to the doxygen_documentation directory:
 
-    cd rpg_monocular_pose_estimator/doxygen_documentation
+    roscd monocular_pose_estimator/../doxygen_documentation
 
 To produce the documentation, run Doxygen on the configuration file:
 
