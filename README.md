@@ -6,13 +6,8 @@ RPG Monocular Pose Estimator
 Disclaimer and License
 ---------------
 
-The RPG Monocular Pose Estimator has been tested under the following setups:
-
-* ROS-Groovy and Ubuntu 12.04
-* ROS-Hydro and Ubuntu 13.10
-* ROS-Indigo and Ubuntu 14.04
-
-This is research code, expect that it changes often and any fitness for a particular purpose is disclaimed.
+The RPG Monocular Pose Estimator is recommended to be used with ROS-Kinetic and Ubuntu 16.04.
+This is research code, expect that it changes often (or not at all) and any fitness for a particular purpose is disclaimed.
 
 The source code is released under a GPL licence. Please contact the authors for a commercial license.
 
