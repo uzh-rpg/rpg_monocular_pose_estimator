@@ -69,7 +69,6 @@ Then clone the latest version from our *GitHub* repository into your catkin work
 
     cd catkin_workspace/src
     git clone https://github.com/uzh-rpg/rpg_monocular_pose_estimator.git
-    cd ../
     vcs-import < rpg_monocular_pose_estimator/dependencies.yaml
     catkin_make
 
