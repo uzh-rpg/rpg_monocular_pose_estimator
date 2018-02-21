@@ -6,13 +6,8 @@ RPG Monocular Pose Estimator
 Disclaimer and License
 ---------------
 
-The RPG Monocular Pose Estimator has been tested under the following setups:
-
-* ROS-Groovy and Ubuntu 12.04
-* ROS-Hydro and Ubuntu 13.10
-* ROS-Indigo and Ubuntu 14.04
-
-This is research code, expect that it changes often and any fitness for a particular purpose is disclaimed.
+The RPG Monocular Pose Estimator is recommended to be used with ROS-Kinetic and Ubuntu 16.04.
+This is research code, expect that it changes often (or not at all) and any fitness for a particular purpose is disclaimed.
 
 The source code is released under a GPL licence. Please contact the authors for a commercial license.
 
@@ -32,11 +27,14 @@ M. Faessler, E. Mueggler, K. Schwabe, D. Scaramuzza:
 **A Monocular Pose Estimation System based on Infrared LEDs.**
 IEEE International Conference on Robotics and Automation (ICRA), Hong Kong, 2014.
 
-    @inproceedings{Faessler2014ICRA,
-      author = {Faessler, Matthias and Mueggler, Elias and Schwabe, Karl and Scaramuzza, Davide},
-      title = {A Monocular Pose Estimation System based on Infrared {LED}s},
-      booktitle = {IEEE International Conference on Robotics and Automation (ICRA)},
-      year = {2014}
+    @InProceedings{Faessler14icra,
+      author        = {Matthias Faessler and Elias Mueggler and Karl Schwabe and
+                      Davide Scaramuzza},
+      title         = {A Monocular Pose Estimation System based on Infrared {LED}s},
+      booktitle     = {{IEEE} Int. Conf. Robot. Autom. (ICRA)},
+      year          = 2014,
+      pages         = {907--913},
+      doi           = {10.1109/ICRA.2014.6906962}
     }
 
 Watch the [video](http://www.youtube.com/watch?v=8Ui3MoOxcPQ) demonstrating the RPG Monocular Pose Estimator:   
@@ -48,14 +46,14 @@ Installation
 
 ### Installation of the package
 
-#### Dependencies
+#### System Dependencies
 
 The RPG Monocular Pose Estimator is built on the Robotic Operating System (ROS). In order to install the package, ROS has to be installed.
 
 - In order to install the Robot Operating System (ROS), please follow the instructions provided in the [link](http://wiki.ros.org).
 - Make sure you have properly set up a ROS catkin workspace as described [here](http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment).
 
-Additionally, the RPG Monocular Pose Estimator makes use of [OpenCV](http://opencv.org) for image processing and the [Eigen](http://eigen.tuxfamily.org) linear algebra library. These should come preinstalled with ROS, however, if the dependency is missing they can be installed from their respective websites:
+Additionally, the RPG Monocular Pose Estimator makes use of [OpenCV](http://opencv.org) for image processing and the [Eigen](http://eigen.tuxfamily.org) linear algebra library. **These should come preinstalled with ROS**, however, if the dependency is missing they can be installed from their respective websites:
 
 - To install OpenCV, follow the installation instructions provided on the OpenCV [website](http://opencv.org).
 
@@ -63,16 +61,24 @@ Additionally, the RPG Monocular Pose Estimator makes use of [OpenCV](http://open
 
 #### Main Installation
 
-In order to install the RPG Monocular Pose Estimator, clone the latest version from our *GitHub* repository into your catkin workspace and compile the package using ROS.
+In order to install the RPG Monocular Pose Estimator and its dependencies, first install [vcstool](https://github.com/dirk-thomas/vcstool):
+
+    sudo apt-get install python-vcstool
+
+Then clone the latest version from our *GitHub* repository into your catkin workspace, get the dependencies with the vcstool and compile the packages using ROS.:
 
     cd catkin_workspace/src
     git clone https://github.com/uzh-rpg/rpg_monocular_pose_estimator.git
-    cd ../
+    vcs-import < rpg_monocular_pose_estimator/dependencies.yaml
     catkin_make
+
+Source your catkin workspace after this.
 
 ### Building the Documentation
 
-The RPG Monocular Pose Estimator makes use of [Doxygen](http://www.doxygen.org/‎) to produce its documentation. Please ensure that you have the latest version of Doxygen (version 1.8.5). The installation instructions for the lastest version of Doxygen can be found [here](http://www.stack.nl/~dimitri/doxygen/download.html).
+The RPG Monocular Pose Estimator makes use of [Doxygen](http://www.doxygen.org/‎) to produce its documentation. Please ensure that you have the latest version of Doxygen which can be installed with:
+
+    sudo apt-get install doxygen
 
 The Doxygen configuration file is located in the *doxygen_documentation* folder within the RPG Monocular Pose Estimator directory. 
 
